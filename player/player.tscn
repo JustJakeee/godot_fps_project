@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://ujmn2sd3d8bp"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_j6bmu"]
+[ext_resource type="Script" path="res://player/head.gd" id="2_1cb5p"]
+[ext_resource type="AudioStream" uid="uid://cloka37c0wfbe" path="res://sounds/huh.ogg" id="3_pefjp"]
+[ext_resource type="Script" path="res://player/buildRay.gd" id="3_tlwlw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jw3xf"]
+height = 2.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_bt1r7"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_j6bmu")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_jw3xf")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+script = ExtResource("2_1cb5p")
+
+[node name="Camera" type="Camera3D" parent="Head"]
+current = true
+fov = 85.0
+script = ExtResource("3_tlwlw")
+
+[node name="BuildRay" type="RayCast3D" parent="Head"]
+target_position = Vector3(0, 0, -5)
+script = ExtResource("3_tlwlw")
+
+[node name="Point" type="MeshInstance3D" parent="Head/BuildRay"]
+mesh = SubResource("BoxMesh_bt1r7")
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_pefjp")
+volume_db = -20.0
