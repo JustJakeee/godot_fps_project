@@ -7,13 +7,13 @@ extends CharacterBody3D
 # Gravity
 const GRAVITY : float = 32.0
 # Maximum speed
-const MAX_SPEED : float = 20.0
+const MAX_SPEED : float = 15.0
 # Tweak the maximum acceleration to your liking
-const MAX_ACCEL : float = 150.0
+const MAX_ACCEL : float = 100.0
 # Jump force
 const JUMP_FORCE : float = 12.0
 # Ground friction
-const FRICTION : float = 0.86
+const FRICTION : float = 0.80
 # Increase air drag by tiny amounts to make strafing faster
 const AIR_DRAG : float = 0.98
 
@@ -21,11 +21,6 @@ func _physics_process(delta):
 	# Gravity
 	if not is_on_floor():
 		velocity.y -= GRAVITY * delta
-
-	# Jumping
-	if Input.is_action_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_FORCE
-		$Sound.play()
 
 	# Input direction
 	var input = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
@@ -38,6 +33,11 @@ func _physics_process(delta):
 	hvel.y = 0.0
 	var decel = FRICTION if is_on_floor() else AIR_DRAG
 	hvel *= decel
+	
+		# Jumping
+	if Input.is_action_pressed("jump") and is_on_floor():
+		velocity.y = JUMP_FORCE
+		$Sound.play()
 	
 	# Zero out horizontal velocity if speed is too small
 	if hvel.length() < MAX_SPEED * 0.01:

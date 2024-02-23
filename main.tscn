@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bbwq7cifo3ky"]
+[gd_scene load_steps=14 format=3 uid="uid://bbwq7cifo3ky"]
 
 [ext_resource type="PackedScene" uid="uid://ujmn2sd3d8bp" path="res://player/player.tscn" id="1_yklku"]
 [ext_resource type="Texture2D" uid="uid://brg06h5fyicep" path="res://assets/SunsetSky.png" id="2_duocv"]
+[ext_resource type="Texture2D" uid="uid://dkn8783tc3w6o" path="res://KovaaK-Crosshair.png" id="3_5f63o"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_20lxs"]
 panorama = ExtResource("2_duocv")
@@ -27,10 +28,24 @@ noise = SubResource("FastNoiseLite_mjtsg")
 albedo_color = Color(0.388235, 0.309804, 0.164706, 1)
 albedo_texture = SubResource("NoiseTexture2D_4r78u")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4hdd2"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_htg4r"]
+material = SubResource("StandardMaterial3D_4hdd2")
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ns1qx"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="LabelSettings" id="LabelSettings_es6e4"]
+font_size = 42
+
 [node name="Main" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_yklku")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00847292, 1.97046, -0.066118)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_y2a18")
@@ -40,3 +55,45 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0502014, -0.706069, -0.531
 use_collision = true
 size = Vector3(1000, 1, 1000)
 material = SubResource("StandardMaterial3D_bjr02")
+
+[node name="BuildRayPoint" type="MeshInstance3D" parent="." groups=["BuildRayPoint"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.22592)
+mesh = SubResource("BoxMesh_htg4r")
+
+[node name="BuildContainer" type="Node" parent="." groups=["BuildContainer"]]
+
+[node name="Orgin" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_ns1qx")
+
+[node name="Control" type="Control" parent="." groups=["UI"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Crosshair" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.0
+offset_top = -17.0
+offset_right = 17.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(658, 131)
+texture = ExtResource("3_5f63o")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Debug"
+label_settings = SubResource("LabelSettings_es6e4")

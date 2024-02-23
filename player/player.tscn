@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ujmn2sd3d8bp"]
+[gd_scene load_steps=6 format=3 uid="uid://ujmn2sd3d8bp"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_j6bmu"]
 [ext_resource type="Script" path="res://player/head.gd" id="2_1cb5p"]
@@ -7,9 +7,6 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jw3xf"]
 height = 2.5
-
-[sub_resource type="BoxMesh" id="BoxMesh_bt1r7"]
-size = Vector3(0.5, 0.5, 0.5)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_j6bmu")
@@ -24,14 +21,10 @@ script = ExtResource("2_1cb5p")
 [node name="Camera" type="Camera3D" parent="Head"]
 current = true
 fov = 85.0
-script = ExtResource("3_tlwlw")
 
 [node name="BuildRay" type="RayCast3D" parent="Head"]
 target_position = Vector3(0, 0, -5)
 script = ExtResource("3_tlwlw")
-
-[node name="Point" type="MeshInstance3D" parent="Head/BuildRay"]
-mesh = SubResource("BoxMesh_bt1r7")
 
 [node name="Sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_pefjp")
