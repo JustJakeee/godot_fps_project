@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbiey11ldwg3q"]
+
+[ext_resource type="Script" path="res://square.gd" id="1_atck5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k1wsr"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ysbls"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bq5bb"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_ysbls")
+size = Vector3(2, 2, 2)
+
+[node name="Square" type="StaticBody3D"]
+script = ExtResource("1_atck5")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_k1wsr")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_bq5bb")
+
+[connection signal="ready" from="." to="." method="check_nodes"]
