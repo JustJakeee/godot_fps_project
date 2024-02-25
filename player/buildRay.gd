@@ -4,10 +4,14 @@ var point;
 var square;
 var triangle;
 var builds;
+var ui;
+var distanceLabel;
 
 func _ready():
 	point = get_tree().get_first_node_in_group("BuildRayPoint")
 	builds = get_tree().get_first_node_in_group("BuildContainer")
+	ui = get_tree().get_first_node_in_group("UI")
+	distanceLabel = ui.get_child(1)
 	square = load("res://square.tscn")
 	triangle = load("res://triangle.tscn")
 
@@ -29,9 +33,9 @@ func _process(delta):
 		var distanceToBuild = endPoint.distance_to(build.global_position)
 		if distanceToBuild < 4:
 			buildsInProximity.append(build)
-			print(distanceToBuild)
 			if distanceToBuild < minDistance:
 				closestBuild = build
+				minDistance = distanceToBuild
 			
 	# var canPlace = buildsInProximity == 0;
 	var canPlace = true;
@@ -40,6 +44,7 @@ func _process(delta):
 	if closestBuild:
 		var closestNode;
 		var closestNodeDistance = 100;
+		distanceLabel.text = str(closestBuild.nodes.size())
 		for node in closestBuild.nodes:
 			var nodeDistance = node.distance_to(endPoint)
 			if nodeDistance < closestNodeDistance:
@@ -47,16 +52,18 @@ func _process(delta):
 				closestNodeDistance = nodeDistance
 		placePos = closestNode
 		point.global_rotation = closestBuild.global_rotation
-		
-	if closestBuild:
-		point.global_position = closestBuild.global_position + Vector3(0,1,0)
+		point.global_position = placePos
 
-	if Input.is_action_just_pressed("square"):
+	if Input.is_action_just_pressed("build"):
 		print(buildsInProximity)
 		if canPlace == true:
 			var newSquare = square.instantiate()
 			newSquare.transform = point.transform
 			if closestBuild:
 				newSquare.global_position = placePos
+				newSquare.rotation = closestBuild.rotation
 			newSquare.add_to_group("builds")
 			builds.add_child(newSquare)
+	elif Input.is_action_just_pressed("delete"):
+		if closestBuild:
+			closestBuild.queue_free()

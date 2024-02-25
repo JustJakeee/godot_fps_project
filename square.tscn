@@ -20,3 +20,5 @@ shape = SubResource("BoxShape3D_k1wsr")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_bq5bb")
+
+[connection signal="ready" from="." to="." method="check_nodes"]
