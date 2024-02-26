@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dkn8783tc3w6o"
-path="res://.godot/imported/KovaaK-Crosshair.png-e5c9470b14a3b4eb9fb66417d56a3a5e.ctex"
+path="res://.godot/imported/KovaaK-Crosshair.png-6058caadabe40fd91b9c77139c49ad49.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://KovaaK-Crosshair.png"
-dest_files=["res://.godot/imported/KovaaK-Crosshair.png-e5c9470b14a3b4eb9fb66417d56a3a5e.ctex"]
+source_file="res://assets/KovaaK-Crosshair.png"
+dest_files=["res://.godot/imported/KovaaK-Crosshair.png-6058caadabe40fd91b9c77139c49ad49.ctex"]
 
 [params]
 
