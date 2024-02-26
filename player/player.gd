@@ -37,7 +37,7 @@ func _physics_process(delta):
 		# Jumping
 	if Input.is_action_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_FORCE
-		$Sound.play()
+		# $Sound.play()
 	
 	# Zero out horizontal velocity if speed is too small
 	if hvel.length() < MAX_SPEED * 0.01:
